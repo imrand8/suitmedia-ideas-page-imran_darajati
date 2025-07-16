@@ -1,0 +1,251 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding-top: 70px; /* Sesuaikan dengan tinggi header */
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Styling */
+#main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ff6600; /* Warna solid di paling atas */
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+#main-header.header-hidden {
+    transform: translateY(-100%); /* Sembunyikan header dengan menggesernya ke atas */
+}
+
+#main-header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+}
+
+.logo img {
+    height: 40px; /* Sesuaikan ukuran logo */
+    vertical-align: middle; /* Pastikan gambar sejajar dengan teks jika ada */
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin-left: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #f4f4f4;
+    font-weight: lighter;
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 0.3s ease, color 0.3s ease;
+}
+
+.nav-links li.active a,
+.nav-links a:hover {
+    border-bottom: 2px solid #ffff; /* Warna aktif/hover */
+    color: #ffff;
+}
+
+/* Banner Styling */
+.banner {
+    position: relative;
+    height: 400px; /* Sesuaikan tinggi banner */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+    /* transition: background-position 0.1s linear; */ /* Untuk parallax, bisa dikontrol via JS */
+    /* Contoh clip-path untuk membuat efek miring di bawah */
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%); /* Sesuaikan kemiringan */
+}
+
+.banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Overlay agar teks terbaca */
+    z-index: 1;
+}
+
+.banner-content {
+    position: relative;
+    z-index: 2;
+    /* Akan diatur transform: translateY() untuk parallax di JS */
+}
+
+.banner h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.banner p {
+    font-size: 1.2em;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+/* Post List Controls Styling */
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 20px 0;
+    flex-wrap: wrap; /* Agar responsif di layar kecil */
+    gap: 15px;
+}
+
+.right-controls {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.show-per-page, .sort-by {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 0.95em;
+    cursor: pointer;
+}
+
+/* Post Grid Styling */
+.post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsif */
+    gap: 25px;
+}
+
+.post-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+}
+
+.post-card:hover {
+    transform: translateY(-5px);
+}
+
+.post-thumbnail-container {
+    width: 100%;
+    aspect-ratio: 16/9; /* Konsisten ratio thumbnail (16:9) */
+    overflow: hidden;
+    position: relative;
+    background-color: #e0e0e0; /* Warna latar belakang saat gambar belum load / placeholder */
+    display: flex; /* Untuk memposisikan placeholder teks di tengah */
+    justify-content: center;
+    align-items: center;
+}
+
+.post-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Pastikan gambar mengisi container tanpa terdistorsi */
+    display: block; /* Menghilangkan spasi ekstra di bawah gambar */
+}
+
+.post-content {
+    padding: 15px;
+}
+
+.post-date {
+    font-size: 0.85em;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.post-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    /* Batasi tinggi teks menjadi maksimal 3 baris */
+    height: 3.6em; /* Perkiraan tinggi untuk 3 baris (1.2em * 3 = 3.6em), sesuaikan font-size jika perlu */
+    overflow: hidden;
+    display: -webkit-box; /* Untuk ellipsis multi-line di WebKit (Chrome, Safari) */
+    -webkit-line-clamp: 3; /* Batasi menjadi 3 baris */
+    -webkit-box-orient: vertical; /* Atur orientasi box untuk ellipsis */
+    text-overflow: ellipsis; /* Tambahkan ellipsis jika teks lebih dari 3 baris */
+}
+
+/* Pagination Styling */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.pagination .page-link {
+    display: inline-block;
+    padding: 8px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.pagination .page-link:hover {
+    background-color: #eee;
+}
+
+.pagination .page-link.active {
+    background-color: #ff6600;
+    color: white;
+    border-color: #ff6600;
+}
+
+/* Responsifitas dasar */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none; /* Sembunyikan menu nav di layar kecil jika tidak ada tombol hamburger */
+    }
+    .banner h1 {
+        font-size: 2.5em;
+    }
+    .banner p {
+        font-size: 1em;
+    }
+    .controls {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .right-controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
